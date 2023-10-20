@@ -1,11 +1,13 @@
 package ru.netology.page;
 
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import ru.netology.data.DataHelper;
 
 import static com.codeborne.selenide.Condition.visible;
 import static com.codeborne.selenide.Selectors.byText;
+import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 
 public class TransferPage {
@@ -24,6 +26,10 @@ public class TransferPage {
         fromInput.setValue(cardInfo.getCardNumber());
         transferButton.click();
         return new DashboardPage();
+    }
+
+    public void TransferFailed() {
+        $(withText("Недостаточно средств")).shouldBe(Condition.visible);
     }
 
 }

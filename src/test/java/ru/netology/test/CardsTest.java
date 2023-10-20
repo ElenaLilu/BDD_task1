@@ -64,18 +64,9 @@ public class CardsTest {
         val verificationPage = loginPage.validLogin(authInfo);
         val verificationCode = DataHelper.getVerificationCode(authInfo);
         val dashboardPage = verificationPage.validVerify(verificationCode);
-        val balanceOfFirstCardBefore = dashboardPage.getCurrentBalanceOfFirstCard();
-        val balanceOfSecondCardBefore = dashboardPage.getCurrentBalanceOfSecondCard();
         val transferPage = dashboardPage.secondCard();
         val cardInfo = DataHelper.getFirstCardInfo();
         transferPage.makeTransfer(amount, cardInfo);
-        val balanceAfterTransferFirstCard = DataHelper.balanceOfSecondCardAfterTransfer
-                (balanceOfSecondCardBefore, amount);
-        val balanceAfterTransferSecondCard = DataHelper.balanceOfFirstCardAfterTransfer
-                (balanceOfFirstCardBefore, amount);
-        val balanceOfFirstCardAfter = dashboardPage.getCurrentBalanceOfSecondCard();
-        val balanceOfSecondCardAfter = dashboardPage.getCurrentBalanceOfFirstCard();
-        assertEquals(balanceAfterTransferFirstCard, balanceOfFirstCardAfter);
-        assertEquals(balanceAfterTransferSecondCard, balanceOfSecondCardAfter);
+        transferPage.TransferFailed();
     }
 }
